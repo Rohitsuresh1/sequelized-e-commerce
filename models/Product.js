@@ -6,10 +6,22 @@ const { DECIMAL } = require('sequelize/lib/data-types');
 const dataTypes = require('sequelize/lib/data-types');
 const { INTEGER } = require('sequelize');
 const Category = require('./Category');
+const { NUMERIC } = require('sequelize');
 
 // Initialize Product model (table) by extending off Sequelize's Model class
 class Product extends Model {
-
+  static newCategory(body, model) {
+    return models.Category.create({
+      category_id: body.category_id,
+      category_name: body.category_name
+    }).then(()=> {
+    return Category.findAll({
+      where: {
+        id: body.category_id
+      }
+    });
+  });
+  }
 
 }
 
@@ -34,7 +46,8 @@ Product.init(
     stock: {
       type: DataTypes.INTEGER,
       allowNull:false,
-      defaultValue:10
+      defaultValue:10,
+      validate:NUMERIC
     },
     category_id: {
       type: DataTypes.INTEGER,
