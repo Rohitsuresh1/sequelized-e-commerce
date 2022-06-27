@@ -80,7 +80,7 @@ router.delete('/:id', (req, res) => {
   })
   .then((data)=> {
     if(!data) {
-      res.status(404).json({message: 'No Category found!'});\
+      res.status(404).json({message: 'No Category found!'});
       return;
     }
     res.json(data);
