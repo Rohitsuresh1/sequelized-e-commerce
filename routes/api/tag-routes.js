@@ -77,7 +77,7 @@ router.delete('/:id', (req, res) => {
     if(!data) {
       res.status(404).json({message:'No Tag found'});
     }
-    res.json(data);
+    res.json(data+JSON.stringify(` Record deleted!`));
   })
   .catch((err)=>res.status(500).json(err));
 });
